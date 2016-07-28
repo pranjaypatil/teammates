@@ -562,6 +562,23 @@ public class FeedbackQuestionsLogicTest extends BaseComponentTestCase {
         actualQuestions = fqLogic.getFeedbackQuestionsForInstructor(allQuestions, true, "instructor1@course1.tmt");
         
         assertEquals(actualQuestions, expectedQuestions);
+        
+        ______TS("Get questions created for an instructor from list of all questions");
+
+        allQuestions = new ArrayList<FeedbackQuestionAttributes>();
+        allQuestions.add(getQuestionFromDatastore("qn1InSession1InCourse1"));
+        allQuestions.add(getQuestionFromDatastore("qn2InSession1InCourse1"));
+        allQuestions.add(getQuestionFromDatastore("qn3InSession1InCourse1"));
+        allQuestions.add(getQuestionFromDatastore("qn4InSession1InCourse1"));
+        allQuestions.add(getQuestionFromDatastore("custom.feedback.paths.instructor.question"));
+        
+        expectedQuestions = new ArrayList<FeedbackQuestionAttributes>();
+        expectedQuestions.add(getQuestionFromDatastore("qn4InSession1InCourse1"));
+        expectedQuestions.add(getQuestionFromDatastore("custom.feedback.paths.instructor.question"));
+        
+        actualQuestions = fqLogic.getFeedbackQuestionsForInstructor(allQuestions, false, "instructor2@course1.tmt");
+        
+        assertEquals(actualQuestions, expectedQuestions);
     }
 
     public void testGetFeedbackQuestionsForStudents() {
