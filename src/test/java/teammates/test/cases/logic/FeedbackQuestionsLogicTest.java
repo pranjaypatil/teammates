@@ -594,6 +594,7 @@ public class FeedbackQuestionsLogicTest extends BaseComponentTestCase {
         List<FeedbackQuestionAttributes> expectedQuestions;
         List<FeedbackQuestionAttributes> actualQuestions;
         List<FeedbackQuestionAttributes> allQuestions;
+        StudentAttributes student = typicalBundle.students.get("student5InCourse1");
         
         ______TS("Get questions created for single student");
         expectedQuestions = new ArrayList<FeedbackQuestionAttributes>();
@@ -601,8 +602,6 @@ public class FeedbackQuestionsLogicTest extends BaseComponentTestCase {
         expectedQuestions.add(getQuestionFromDatastore("qn2InSession1InCourse1"));
         expectedQuestions.add(getQuestionFromDatastore("custom.feedback.paths.student.question"));
         expectedQuestions.add(getQuestionFromDatastore("custom.feedback.paths.team.question"));
-        
-        StudentAttributes student = typicalBundle.students.get("student5InCourse1");
         
         actualQuestions = fqLogic.getFeedbackQuestionsForStudent(
                 "First feedback session", "idOfTypicalCourse1", student);
@@ -615,12 +614,12 @@ public class FeedbackQuestionsLogicTest extends BaseComponentTestCase {
         allQuestions.add(getQuestionFromDatastore("qn1InSession1InCourse1"));
         allQuestions.add(getQuestionFromDatastore("qn2InSession1InCourse1"));
         allQuestions.add(getQuestionFromDatastore("qn3InSession1InCourse1"));
+        allQuestions.add(getQuestionFromDatastore("custom.feedback.paths.student.question"));
                 
         expectedQuestions = new ArrayList<FeedbackQuestionAttributes>();
         expectedQuestions.add(getQuestionFromDatastore("qn1InSession1InCourse1"));
         expectedQuestions.add(getQuestionFromDatastore("qn2InSession1InCourse1"));
-        
-        student = typicalBundle.students.get("student1InCourse1");
+        expectedQuestions.add(getQuestionFromDatastore("custom.feedback.paths.student.question"));
         
         actualQuestions = fqLogic.getFeedbackQuestionsForStudent(allQuestions, student);
         
@@ -631,10 +630,12 @@ public class FeedbackQuestionsLogicTest extends BaseComponentTestCase {
         allQuestions = new ArrayList<FeedbackQuestionAttributes>();
         allQuestions.add(getQuestionFromDatastore("team.feedback"));
         allQuestions.add(getQuestionFromDatastore("team.members.feedback"));
+        allQuestions.add(getQuestionFromDatastore("custom.feedback.paths.team.question"));
                 
         expectedQuestions = new ArrayList<FeedbackQuestionAttributes>();
         expectedQuestions.add(getQuestionFromDatastore("team.feedback"));
         expectedQuestions.add(getQuestionFromDatastore("team.members.feedback"));
+        expectedQuestions.add(getQuestionFromDatastore("custom.feedback.paths.team.question"));
         
         actualQuestions = fqLogic.getFeedbackQuestionsForStudent(allQuestions, student);
         
